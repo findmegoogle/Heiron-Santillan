@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heiron Santillan - AI Portfolio | Full Stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            transition: background-color 0.3s ease, color 0.2s ease;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .dark-mode-transition * {
+            transition: background-color 0.3s ease, color 0.2s ease, border-color 0.3s ease;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+        
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #667eea; }
+        }
+        
+        .float-animation {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        .slide-left {
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .slide-right {
+            animation: slideInRight 1s ease-out;
+        }
+        
+        .sparkle {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        .animate-spin-slow {
+            animation: spin-slow 8s linear infinite;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .dark .gradient-bg {
+            background: linear-gradient(135deg, #4c51bf 0%, #7e22ce 100%);
+        }
+        
+        .chat-bubble {
+            border-radius: 24px;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .chat-bubble.user {
+            border-radius: 24px;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .dark-mode-toggle {
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: rotate(30deg);
+        }
+        
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        /* Custom particle styles */
+        .particle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .custom-particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            margin: 0 2px;
+            background-color: #9ca3af;
+            border-radius: 50%;
+            animation: typing-bounce 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+        
+        @keyframes typing-bounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+        }
+        
+        /* AI Assistant styles */
+        .ai-thinking {
+            opacity: 0.7;
+            font-style: italic;
+        }
+        
+        .ai-highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .dark .ai-highlight {
+            color: #a78bfa;
+        }
+        
+        .suggestion-chip {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .suggestion-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .ai-response-content {
+            line-height: 1.6;
+        }
+        
+        /* CV Preview Modal */
+        .cv-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cv-modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .dark .cv-modal-content {
+            background: #1f2937;
+            color: white;
+        }
+        
+        .cv-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .dark .cv-header {
+            background: linear-gradient(135deg, #4c51bf 0%, #7e22ce 100%);
+        }
+        
+        .cv-body {
+            padding: 30px;
+        }
+        
+        .cv-section {
+            margin-bottom: 25px;
+        }
+        
+        .cv-section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .dark .cv-section-title {
+            color: #a78bfa;
+            border-color: #a78bfa;
+        }
+        
+        .cv-contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .cv-contact-icon {
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .dark .cv-contact-icon {
+            background: #7e22ce;
+        }
+    </style>
+</head>
+<body class="dark-mode-transition bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 min-h-screen">
+    <!-- CV Preview Modal -->
+    <div id="cvModal" class="cv-modal">
+        <div class="cv-modal-content">
+            <div class="cv-header">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold">Heiron Santillan - Resume Preview</h2>
+                    <button id="closeCvModal" class="text-white hover:text-gray-200 text-2xl">&times;</button>
+                </div>
+                <p class="mt-2 text-sm opacity-90">Preview of your downloadable CV</p>
+            </div>
+            <div class="cv-body">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold mb-2">HEIRON SANTILLAN</h1>
+                    <p class="text-lg text-gray-600 dark:text-gray-300">Full Stack Developer & IT Professional</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Contact Info -->
+                    <div class="cv-section">
+                        <h3 class="cv-section-title">CONTACT</h3>
+                        <div class="space-y-3">
+                            <div class="cv-contact-item">
+                                <div class="cv-contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <span>09100825932</span>
+                            </div>
+                            <div class="cv-contact-item">
+                                <div class="cv-contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <span>heironsantillan.ph@gmail.com</span>
+                            </div>
+                            <div class="cv-contact-item">
+                                <div class="cv-contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <span>Block 254 lot 15 emerald st. group 10 zone 12 pembo Taguig city</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Education -->
+                    <div class="cv-section">
+                        <h3 class="cv-section-title">EDUCATION</h3>
+                        <div>
+                            <h4 class="font-bold">Advance Central College</h4>
+                            <p class="text-gray-600 dark:text-gray-300">2019 - 2022</p>
+                            <p>Bachelor of Science in Information System</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills -->
+                    <div class="cv-section">
+                        <h3 class="cv-section-title">SKILLS</h3>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Web Developer using WordPress</li>
+                            <li>Communication skills</li>
+                            <li>Computer Software knowledge (Adobe, Microsoft, Google Drive)</li>
+                            <li>Problem-solving skills</li>
+                            <li>Organization and time management skills</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Work Experience -->
+                <div class="cv-section">
+                    <h3 class="cv-section-title">WORK EXPERIENCE</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-lg">Technical Support</h4>
+                        <p class="text-gray-600 dark:text-gray-300 font-medium">Teleperformance • December 2023 - Present</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Delivered first-level technical support to end-users by troubleshooting hardware, software, and network issues</li>
+                            <li>Resolved an average of 10 tickets daily with 100% first-call resolution rate</li>
+                            <li>Escalated complex technical issues to Tier 2/3 teams within SLA requirements</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-lg">IT Assistant</h4>
+                        <p class="text-gray-600 dark:text-gray-300 font-medium">Manila International Registries, Inc. • June 2023 - November 2023</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Assisted employees with IT-related issues including hardware and software troubleshooting</li>
+                            <li>Resolved network connectivity issues and provided application guidance</li>
+                            <li>Managed IT inventory including hardware, software licenses, and other IT assets</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Profile -->
+                <div class="cv-section">
+                    <h3 class="cv-section-title">PROFILE</h3>
+                    <p class="italic">To obtain a full-time position that utilizes my knowledge and skills in a professional environment, while providing me the opportunity for professional growth and development.</p>
+                </div>
+                
+                <!-- References -->
+                <div class="cv-section">
+                    <h3 class="cv-section-title">REFERENCES</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <h4 class="font-bold">Mr. Mamert T. Fernando</h4>
+                            <p class="text-sm">College Professor</p>
+                            <p class="text-sm">Advance Central College</p>
+                            <p class="text-sm mt-1">09272037047</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Mrs. Denny M. Labordo</h4>
+                            <p class="text-sm">Supervisor</p>
+                            <p class="text-sm">Teleperformance</p>
+                            <p class="text-sm mt-1">09947294678</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Mrs. Flordeliza Valencia</h4>
+                            <p class="text-sm">HR</p>
+                            <p class="text-sm">International Registries, Inc.</p>
+                            <p class="text-sm mt-1">+63 917 8107719</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Download Button -->
+                <div class="mt-8 text-center">
+                    <button id="downloadPdfBtn" class="px-6 py-3 gradient-bg text-white font-medium rounded-lg hover:opacity-90 transition">
+                        <i class="fas fa-download mr-2"></i>Download PDF Resume
+                    </button>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Click to download the complete PDF version</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Particles Container -->
+    <div id="tsparticles"></div>
+    
+    <!-- Custom Particles Container -->
+    <div id="custom-particles" class="particle-container"></div>
+    
+    <!-- Header with Navigation -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center">
+                        <i class="fas fa-robot text-white"></i>
+                    </div>
+                    <h1 class="text-xl font-bold">Heiron Santillan</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="font-medium hover:text-purple-600 dark:hover:text-purple-400 transition">Home</a>
+                    <a href="#projects" class="font-medium hover:text-purple-600 dark:hover:text-purple-400 transition">Projects</a>
+                    <a href="#skills" class="font-medium hover:text-purple-600 dark:hover:text-purple-400 transition">Skills</a>
+                    <a href="#contact" class="font-medium hover:text-purple-600 dark:hover:text-purple-400 transition">Contact</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="dark-mode-toggle w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                        <i class="fas fa-moon text-gray-800 dark:text-yellow-300"></i>
+                    </button>
+                    
+                    <!-- CV Download Button -->
+                    <button id="viewCvBtn" class="px-4 py-2 gradient-bg text-white font-medium rounded-lg hover:opacity-90 transition flex items-center space-x-2">
+                        <i class="fas fa-file-alt"></i>
+                        <span>View Resume</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 md:px-6">
+        <!-- Hero Section with Animation -->
+        <section id="home" class="hero-section py-12 md:py-20">
+            <div class="flex flex-col md:flex-row items-center justify-between relative z-10">
+                <div class="md:w-1/2 mb-10 md:mb-0 slide-left">
+                    <div class="inline-block px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-sm font-medium mb-4">
+                        <i class="fas fa-star mr-1 sparkle"></i> AI-Enhanced Portfolio
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                        Hello, I'm 
+                        <span class="typewriter block gradient-text bg-clip-text text-transparent gradient-bg">Heiron Santillan</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl">
+                        IT professional with expertise in technical support, web development, and IT solutions. Welcome to my interactive portfolio where you can chat with my AI assistant to learn more about my skills and experience.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#projects" class="px-6 py-3 gradient-bg text-white font-medium rounded-lg hover:opacity-90 transition relative z-20">
+                            View Projects
+                        </a>
+                        <a href="#ai-assistant" class="px-6 py-3 border-2 border-purple-600 dark:border-purple-400 text-purple-600 dark:text-purple-400 font-medium rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition relative z-20">
+                            <i class="fas fa-robot mr-2"></i> Chat with AI
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 flex justify-center slide-right relative z-10">
+                    <div class="relative">
+                        <!-- Profile Picture Container -->
+                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl float-animation relative z-20">
+                            <!-- Profile Image -->
+                            <img 
+                                src="profile.jpg" 
+                                alt="Heiron Santillan - Full Stack Developer"
+                                class="w-full h-full object-cover"
+                            />
+                            <!-- Overlay gradient for visual enhancement -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-purple-600/20 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Experience Badge -->
+                        <div class="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-16 h-16 md:w-20 md:h-20 gradient-bg rounded-full flex items-center justify-center border-4 border-white dark:border-gray-800 shadow-lg z-30">
+                            <i class="fas fa-code text-white text-xl md:text-2xl"></i>
+                        </div>
+                        
+                        <!-- IT Badge -->
+                        <div class="absolute -bottom-2 -left-2 md:-bottom-4 md:-left-4 w-14 h-14 md:w-16 md:h-16 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center border-4 border-white dark:border-gray-800 shadow-lg z-30">
+                            <span class="text-white font-bold text-sm md:text-base">IT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Assistant Section -->
+        <section id="ai-assistant" class="py-12 md:py-16 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">AI Portfolio Assistant</h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Ask me anything about my skills, experience, projects, or availability. I'm here to help!</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="gradient-bg p-4 text-white">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold">Heiron's AI Assistant</h3>
+                            <p class="text-sm opacity-90">Trained on my resume data - Ask me anything!</p>
+                        </div>
+                        <div class="ml-auto flex">
+                            <div class="w-3 h-3 bg-green-400 rounded-full mr-1"></div>
+                            <div class="w-3 h-3 bg-yellow-400 rounded-full mr-1"></div>
+                            <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Suggestions -->
+                <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Quick questions you can ask:</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="suggestion-chip px-3 py-1.5 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-sm rounded-full border border-purple-200 dark:border-purple-800">
+                            Tell me about yourself
+                        </button>
+                        <button class="suggestion-chip px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm rounded-full border border-blue-200 dark:border-blue-800">
+                            What are your skills?
+                        </button>
+                        <button class="suggestion-chip px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-sm rounded-full border border-green-200 dark:border-green-800">
+                            Your work experience
+                        </button>
+                        <button class="suggestion-chip px-3 py-1.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 text-sm rounded-full border border-yellow-200 dark:border-yellow-800">
+                            Download your resume
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-4 h-96 overflow-y-auto" id="chat-container">
+                    <div class="mb-4">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center mr-2">
+                                <i class="fas fa-robot text-white text-xs"></i>
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-700 p-4 chat-bubble max-w-xs md:max-w-md">
+                                <p class="ai-response-content">Hi there! I'm Heiron's AI assistant. I can answer questions about his background, skills, work experience, education, and availability. Feel free to ask me anything about his professional profile!</p>
+                                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Try asking: "What's your experience in technical support?" or "Tell me about your education"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="flex">
+                        <input type="text" id="user-input" placeholder="Ask about my profile, skills, experience, education..." class="flex-grow p-3 border border-gray-300 dark:border-gray-600 rounded-l-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <button id="send-btn" class="gradient-bg text-white px-6 rounded-r-lg hover:opacity-90 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">The AI will answer based on Heiron's resume information</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-12 md:py-16 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Featured Projects</h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Explore my work in web development and IT solutions.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 gradient-bg relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-wordpress text-white text-6xl"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 text-purple-800 text-sm font-medium rounded-full">
+                            WordPress
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">WordPress E-commerce Site</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">A fully functional e-commerce website built with WordPress, WooCommerce, and custom plugins for a local business.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-xs rounded-full">WordPress</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full">WooCommerce</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs rounded-full">PHP</span>
+                        </div>
+                        <a href="#" class="text-purple-600 dark:text-purple-400 font-medium hover:underline inline-flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 gradient-bg relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-tools text-white text-6xl"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 text-purple-800 text-sm font-medium rounded-full">
+                            IT Solution
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">IT Support Dashboard</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">An internal dashboard for tracking IT support tickets, inventory management, and system monitoring.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-xs rounded-full">React</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full">Node.js</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs rounded-full">MongoDB</span>
+                        </div>
+                        <a href="#" class="text-purple-600 dark:text-purple-400 font-medium hover:underline inline-flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="h-48 gradient-bg relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-laptop-code text-white text-6xl"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 text-purple-800 text-sm font-medium rounded-full">
+                            Web App
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Portfolio Website</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">A responsive portfolio website showcasing projects and skills with interactive AI assistant functionality.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 text-xs rounded-full">HTML/CSS</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full">JavaScript</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs rounded-full">Tailwind CSS</span>
+                        </div>
+                        <a href="#" class="text-purple-600 dark:text-purple-400 font-medium hover:underline inline-flex items-center">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-12 md:py-16 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Technical Skills</h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">A comprehensive set of skills for IT support and web development.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                    <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-code text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Web Development</h3>
+                    <p class="text-gray-600 dark:text-gray-300">WordPress, HTML/CSS, JavaScript, PHP, React</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                    <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-tools text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">IT Support</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Hardware Troubleshooting, Software Support, Network Issues, Ticketing Systems</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                    <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-desktop text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Software</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Adobe Suite, Microsoft Office, Google Drive, WordPress CMS</p>
+                </div>
+                
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+                    <div class="w-12 h-12 gradient-bg rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-users text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Soft Skills</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Communication, Problem-solving, Time Management, Customer Service</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-12 md:py-16 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Feel free to reach out for IT support opportunities, web development projects, or collaborations!</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/3 gradient-bg p-8 text-white">
+                        <h3 class="text-2xl font-bold mb-6">Contact Info</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Email</p>
+                                    <p>heironsantillan.ph@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Phone</p>
+                                    <p>09100825932</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Location</p>
+                                    <p>Taguig City, Philippines</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-10">
+                            <h4 class="text-xl font-bold mb-4">Connect with me</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-2/3 p-8">
+                        <form id="contact-form">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 dark:text-gray-300 mb-2">Name</label>
+                                    <input type="text" id="name" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-700 dark:text-gray-300 mb-2">Email</label>
+                                    <input type="email" id="email" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                </div>
+                            </div>
+                            <div class="mb-6">
+                                <label for="subject" class="block text-gray-700 dark:text-gray-300 mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                                <textarea id="message" rows="5" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                            </div>
+                            <button type="submit" class="px-6 py-3 gradient-bg text-white font-medium rounded-lg hover:opacity-90 transition w-full">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-8 mt-12 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center">
+                            <i class="fas fa-robot text-white text-sm"></i>
+                        </div>
+                        <h2 class="text-lg font-bold">Heiron Santillan Portfolio</h2>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-2">© 2025 Heiron Santillan. All rights reserved.</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#home" class="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition">Home</a>
+                    <a href="#projects" class="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition">Projects</a>
+                    <a href="#contact" class="text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Assistant Response Template -->
+    <template id="ai-response-template">
+        <div class="mb-4">
+            <div class="flex items-start">
+                <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center mr-2">
+                    <i class="fas fa-robot text-white text-xs"></i>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-700 p-4 chat-bubble max-w-xs md:max-w-md">
+                    <p class="ai-response-content"></p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- User Message Template -->
+    <template id="user-message-template">
+        <div class="mb-4 flex justify-end">
+            <div class="max-w-xs md:max-w-md">
+                <div class="bg-purple-600 dark:bg-purple-700 text-white p-4 chat-bubble user">
+                    <p class="user-message-text"></p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Typing Indicator Template -->
+    <template id="typing-indicator-template">
+        <div class="mb-4">
+            <div class="flex items-start">
+                <div class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center mr-2">
+                    <i class="fas fa-robot text-white text-xs"></i>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-700 p-3 chat-bubble">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        // Dark/Light Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const htmlElement = document.documentElement;
+        
+        // Check for saved theme or prefer-color-scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            htmlElement.classList.add('dark');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun text-yellow-300"></i>';
+        } else {
+            htmlElement.classList.remove('dark');
+            darkModeToggle.innerHTML = '<i class="fas fa-moon text-gray-800"></i>';
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun text-yellow-300"></i>';
+            } else {
+                localStorage.setItem('theme', 'light');
+                darkModeToggle.innerHTML = '<i class="fas fa-moon text-gray-800"></i>';
+            }
+        });
+
+        // Profile Data for AI Assistant - Based on Heiron Santillan's resume
+        const profileData = {
+            name: "Heiron Santillan",
+            title: "Full Stack Developer & IT Professional",
+            experience: "1+ years of professional experience",
+            location: "Taguig City, Philippines",
+            email: "heironsantillan.ph@gmail.com",
+            phone: "09100825932",
+            address: "Block 254 lot 15 emerald st. group 10 zone 12 pembo Taguig city",
+            education: "Bachelor of Science in Information System from Advance Central College (2019-2022)",
+            availability: "Available for full-time positions and freelance projects",
+            
+            skills: {
+                webDev: ["WordPress Development", "HTML/CSS", "JavaScript", "PHP", "React"],
+                itSupport: ["Technical Support", "Hardware Troubleshooting", "Software Support", "Network Issues", "Ticketing Systems"],
+                software: ["Adobe Suite", "Microsoft Office", "Google Drive", "WordPress CMS"],
+                softSkills: ["Communication", "Problem-solving", "Time Management", "Organization", "Customer Service"]
+            },
+            
+            workExperience: [
+                {
+                    role: "Technical Support",
+                    company: "Teleperformance",
+                    duration: "December 2023 - Present",
+                    responsibilities: [
+                        "Delivered first-level technical support to end-users",
+                        "Troubleshot hardware, software, and network issues",
+                        "Resolved an average of 10 tickets daily",
+                        "Achieved 100% first-call resolution rate",
+                        "Escalated complex issues to Tier 2/3 teams"
+                    ]
+                },
+                {
+                    role: "IT Assistant",
+                    company: "Manila International Registries, Inc.",
+                    duration: "June 2023 - November 2023",
+                    responsibilities: [
+                        "Assisted employees with IT-related issues",
+                        "Troubleshot hardware and software problems",
+                        "Resolved network connectivity issues",
+                        "Provided guidance on using various applications",
+                        "Managed IT inventory including hardware and software licenses"
+                    ]
+                }
+            ],
+            
+            references: [
+                {
+                    name: "Mr. Mamert T. Fernando",
+                    position: "College Professor",
+                    company: "Advance Central College",
+                    phone: "09272037047"
+                },
+                {
+                    name: "Mrs. Denny M. Labordo",
+                    position: "Supervisor",
+                    company: "Teleperformance",
+                    phone: "09947294678"
+                },
+                {
+                    name: "Mrs. Flordeliza Valencia",
+                    position: "HR",
+                    company: "International Registries, Inc.",
+                    phone: "+63 917 8107719"
+                }
+            ],
+            
+            profileStatement: "To obtain a full-time position that utilizes my knowledge and skills in a professional environment, while providing me the opportunity for professional growth and development."
+        };
+
+        // CV Modal Functionality
+        const viewCvBtn = document.getElementById('viewCvBtn');
+        const cvModal = document.getElementById('cvModal');
+        const closeCvModal = document.getElementById('closeCvModal');
+        const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+
+        // Open CV Modal
+        viewCvBtn.addEventListener('click', () => {
+            cvModal.style.display = 'flex';
+        });
+
+        // Close CV Modal
+        closeCvModal.addEventListener('click', () => {
+            cvModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === cvModal) {
+                cvModal.style.display = 'none';
+            }
+        });
+
+        // Download PDF Resume
+        downloadPdfBtn.addEventListener('click', () => {
+            // Create a PDF download link
+            const pdfUrl = 'https://drive.google.com/uc?export=download&id=YOUR_GOOGLE_DRIVE_FILE_ID'; // Replace with actual PDF link
+            
+            // For demo purposes, we'll create a text file from the resume data
+            const resumeContent = `
+HEIRON SANTILLAN
+
+CONTACT
+• 09100825932
+• heironsantillan.ph@gmail.com
+• Block 254 lot 15 emerald st. group 10 zone 12 pembo Taguig city
+
+EDUCATION
+Advance Central College
+2019 - 2022
+Bachelor of Science in Information System
+
+SKILLS
+• Web Developer using WordPress
+• Communication skills
+• Computer Software knowledge like Adobe, Microsoft and Google drive
+• Problem-solving skills
+• Organization and time management skills
+
+WORK EXPERIENCE
+
+TECHNICAL SUPPORT
+TELEPERFORMANCE
+DECEMBER 2023 - Present
+• Delivered first-level technical support to end-users by troubleshooting hardware, software, and network issues, resolving an average of 10 tickets daily.
+• Responded to technical inquiries via phone, email, and ticketing systems, achieving a 100% first-call resolution rate.
+• Escalated complex technical issues to Tier 2/3 teams, ensuring timely resolution within SLA requirements.
+
+IT ASSISTANT
+MANILA INTERNATIONAL REGISTRIES, INC.
+JUNE 2023 - NOVEMBER 2023
+• Assisting employees or end-users with IT-related issues, such as troubleshooting hardware and software problems, resolving network connectivity issues, and providing guidance on using various applications.
+• Keeping track of IT inventory, including hardware, software licenses, and other IT assets.
+
+PROFILE
+To obtain a full-time position that utilizes my knowledge and skills in a professional environment, while providing me the opportunity for professional growth and development.
+
+REFERENCES
+Mr. Mamert T. Fernando
+College Professor
+Advance Central College
+Phone number: 09272037047
+
+Mrs. Denny M. Labordo
+Supervisor
+Teleperformance
+Phone number: 09947294678
+
+Mrs. Flordeliza Valencia
+HR
+International Registries, Inc.
+Phone number: +63 917 8107719
+            `;
+            
+            // Create a Blob with the resume content
+            const blob = new Blob([resumeContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Heiron_Santillan_Resume.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // Show success message
+            addAIMessage(`I've prepared your resume for download. The file "Heiron_Santillan_Resume.txt" should start downloading shortly. For the actual PDF version, please contact ${profileData.name} directly.`);
+            
+            // Close modal
+            cvModal.style.display = 'none';
+        });
+
+        // AI Assistant Functionality
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const chatContainer = document.getElementById('chat-container');
+        const suggestionChips = document.querySelectorAll('.suggestion-chip');
+        
+        // Add message to chat
+        function addMessage(message, isUser = false) {
+            const templateId = isUser ? 'user-message-template' : 'ai-response-template';
+            const template = document.getElementById(templateId);
+            const clone = template.content.cloneNode(true);
+            
+            if (isUser) {
+                clone.querySelector('.user-message-text').textContent = message;
+            } else {
+                // Format the AI response with better styling
+                const responseContent = clone.querySelector('.ai-response-content');
+                responseContent.innerHTML = formatAIResponse(message);
+            }
+            
+            chatContainer.appendChild(clone);
+            
+            // Scroll to bottom
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        // Show typing indicator
+        function showTypingIndicator() {
+            const template = document.getElementById('typing-indicator-template');
+            const clone = template.content.cloneNode(true);
+            chatContainer.appendChild(clone);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return chatContainer.lastElementChild;
+        }
+        
+        // Remove typing indicator
+        function removeTypingIndicator(typingElement) {
+            if (typingElement && typingElement.parentNode) {
+                typingElement.parentNode.removeChild(typingElement);
+            }
+        }
+        
+        // Format AI response with highlighting
+        function formatAIResponse(text) {
+            // Add highlighting for key terms
+            const highlightTerms = [
+                ...profileData.skills.webDev,
+                ...profileData.skills.itSupport,
+                ...profileData.skills.software,
+                ...profileData.skills.softSkills,
+                profileData.name,
+                'WordPress',
+                'Technical Support',
+                'IT Assistant',
+                'Teleperformance'
+            ];
+            
+            let formattedText = text;
+            
+            // Highlight terms
+            highlightTerms.forEach(term => {
+                const regex = new RegExp(`\\b${term}\\b`, 'gi');
+                formattedText = formattedText.replace(regex, `<span class="ai-highlight">${term}</span>`);
+            });
+            
+            // Add line breaks for lists
+            formattedText = formattedText.replace(/\n/g, '<br>');
+            
+            return formattedText;
+        }
+        
+        // Add AI message directly
+        function addAIMessage(message) {
+            addMessage(message, false);
+        }
+        
+        // Process user message with intelligent response
+        function processUserMessage(message) {
+            addMessage(message, true);
+            
+            // Clear input
+            userInput.value = '';
+            
+            // Show typing indicator
+            const typingIndicator = showTypingIndicator();
+            
+            // Simulate AI thinking
+            setTimeout(() => {
+                removeTypingIndicator(typingIndicator);
+                const response = generateAIResponse(message);
+                addAIMessage(response);
+            }, 1500);
+        }
+        
+        // Generate intelligent response based on user query
+        function generateAIResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            // Greetings
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return `Hello! I'm ${profileData.name}'s AI assistant. How can I help you learn more about ${profileData.name}'s professional profile?`;
+            }
+            
+            // About me / introduction
+            if (lowerMessage.includes('about you') || lowerMessage.includes('tell me about') || lowerMessage.includes('who are you')) {
+                return `I'm ${profileData.name}, a ${profileData.title} with ${profileData.experience}. I have a ${profileData.education}. I'm currently ${profileData.availability.toLowerCase()}. My goal is ${profileData.profileStatement.toLowerCase()}`;
+            }
+            
+            // Skills
+            if (lowerMessage.includes('skill') || lowerMessage.includes('technology') || lowerMessage.includes('tech stack') || lowerMessage.includes('expertise')) {
+                return `Here are ${profileData.name}'s skills:\n\n` +
+                       `<strong>Web Development:</strong> ${profileData.skills.webDev.join(', ')}\n` +
+                       `<strong>IT Support:</strong> ${profileData.skills.itSupport.join(', ')}\n` +
+                       `<strong>Software Proficiency:</strong> ${profileData.skills.software.join(', ')}\n` +
+                       `<strong>Soft Skills:</strong> ${profileData.skills.softSkills.join(', ')}`;
+            }
+            
+            // Work Experience
+            if (lowerMessage.includes('experience') || lowerMessage.includes('background') || lowerMessage.includes('work history') || lowerMessage.includes('career') || lowerMessage.includes('job')) {
+                let response = `${profileData.name} has ${profileData.experience}:\n\n`;
+                
+                profileData.workExperience.forEach(job => {
+                    response += `<strong>${job.role}</strong> at ${job.company} (${job.duration})\n`;
+                    job.responsibilities.forEach(resp => {
+                        response += `• ${resp}\n`;
+                    });
+                    response += '\n';
+                });
+                
+                return response;
+            }
+            
+            // Education
+            if (lowerMessage.includes('education') || lowerMessage.includes('degree') || lowerMessage.includes('study') || lowerMessage.includes('university') || lowerMessage.includes('college')) {
+                return `${profileData.name} has a ${profileData.education}.`;
+            }
+            
+            // Contact information
+            if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('phone') || lowerMessage.includes('reach') || lowerMessage.includes('get in touch') || lowerMessage.includes('address')) {
+                return `You can contact ${profileData.name} via:\n\n` +
+                       `<strong>Email:</strong> ${profileData.email}\n` +
+                       `<strong>Phone:</strong> ${profileData.phone}\n` +
+                       `<strong>Address:</strong> ${profileData.address}\n\n` +
+                       `You can also use the contact form on this page.`;
+            }
+            
+            // Resume/CV
+            if (lowerMessage.includes('resume') || lowerMessage.includes('cv') || lowerMessage.includes('download')) {
+                return `You can view and download ${profileData.name}'s resume by clicking the "View Resume" button in the header. It includes all details about his education, skills, work experience, and references.`;
+            }
+            
+            // WordPress skills
+            if (lowerMessage.includes('wordpress') || lowerMessage.includes('web development') || lowerMessage.includes('website')) {
+                return `${profileData.name} has experience in WordPress development, including creating e-commerce sites with WooCommerce, customizing themes, and developing plugins. He also works with HTML/CSS, JavaScript, and PHP for web development projects.`;
+            }
+            
+            // IT Support experience
+            if (lowerMessage.includes('technical support') || lowerMessage.includes('it support') || lowerMessage.includes('help desk') || lowerMessage.includes('troubleshoot')) {
+                return `${profileData.name} has hands-on experience in technical support, including:\n` +
+                       `• Troubleshooting hardware, software, and network issues\n` +
+                       `• Providing first-level support with 100% first-call resolution rate\n` +
+                       `• Managing IT inventory and assets\n` +
+                       `• Resolving an average of 10 tickets daily`;
+            }
+            
+            // Availability
+            if (lowerMessage.includes('available') || lowerMessage.includes('hire') || lowerMessage.includes('freelance') || lowerMessage.includes('contract') || lowerMessage.includes('opportunity')) {
+                return `${profileData.name} is ${profileData.availability.toLowerCase()}. He's seeking full-time positions that utilize his IT support and web development skills. You can contact him at ${profileData.email} to discuss opportunities.`;
+            }
+            
+            // References
+            if (lowerMessage.includes('reference') || lowerMessage.includes('recommendation')) {
+                let response = `${profileData.name} has the following professional references:\n\n`;
+                
+                profileData.references.forEach(ref => {
+                    response += `<strong>${ref.name}</strong>\n`;
+                    response += `${ref.position} at ${ref.company}\n`;
+                    response += `Phone: ${ref.phone}\n\n`;
+                });
+                
+                return response;
+            }
+            
+            // Default response for other questions
+            return `I'm ${profileData.name}'s AI assistant. I can tell you about his skills, work experience, education, and more. Here are some things you can ask:\n\n` +
+                   `• "What are your skills?"\n` +
+                   `• "Tell me about your work experience"\n` +
+                   `• "What's your education background?"\n` +
+                   `• "Do you know WordPress development?"\n` +
+                   `• "Are you available for work?"\n` +
+                   `• "How can I contact you?"\n` +
+                   `• "View your resume"`;
+        }
+        
+        // Send button click
+        sendBtn.addEventListener('click', () => {
+            const message = userInput.value.trim();
+            if (message) {
+                processUserMessage(message);
+            }
+        });
+        
+        // Enter key press
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const message = userInput.value.trim();
+                if (message) {
+                    processUserMessage(message);
+                }
+            }
+        });
+        
+        // Suggestion chips
+        suggestionChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                const question = chip.textContent;
+                processUserMessage(question);
+            });
+        });
+        
+        // Contact form submission
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Simple validation
+            if (!name || !email || !message) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // In a real application, this would send the data to a server
+            // For demonstration, we'll show a success message
+            alert(`Thank you ${name}! Your message has been sent. ${profileData.name} will get back to you at ${email} soon.`);
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Add a message to the AI chat
+            addAIMessage(`I've sent your contact request to ${profileData.name}. He'll get back to you at ${email} regarding "${subject}".`);
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize simple particles
+        if (typeof tsParticles !== 'undefined') {
+            tsParticles.load("tsparticles", {
+                particles: {
+                    number: { value: 30 },
+                    color: { value: htmlElement.classList.contains('dark') ? "#4c51bf" : "#667eea" },
+                    links: { enable: true, distance: 150 },
+                    move: { enable: true, speed: 1 }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
